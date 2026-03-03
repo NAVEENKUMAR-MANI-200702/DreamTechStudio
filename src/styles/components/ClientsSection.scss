@@ -1,0 +1,198 @@
+.clients-section {
+    position: relative;
+    padding: 100px 20px;
+    background: #0f0f0f;
+    color: white;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.clients-blob {
+    position: absolute;
+    width: 350px;
+    height: 350px;
+    border-radius: 50%;
+    filter: blur(120px);
+    opacity: 0.25;
+}
+
+.blob-left {
+    bottom: 50px;
+    left: -150px;
+    background: radial-gradient(circle, rgba(255, 80, 80, 0.4), transparent);
+}
+
+.blob-right {
+    top: 50px;
+    right: -150px;
+    background: radial-gradient(circle, rgba(100, 120, 255, 0.4), transparent);
+}
+
+/* ===== Container ===== */
+
+.clients-container {
+    width: 100%;
+    margin: 0 50px;
+    position: relative;
+    z-index: 2;
+}
+
+.clients-header {
+    text-align: center;
+    margin-bottom: 60px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.clients-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 999px;
+    border: 1px solid #333;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.clients-header h2 {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+.clients-header p {
+    max-width: 600px;
+    margin: auto;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+/* ===== Marquee ===== */
+
+.clients-marquee {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.marquee-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.marquee-track {
+    display: flex;
+    gap: 40px;
+    width:80%;
+    animation: marquee 10s linear infinite;
+}
+
+.marquee-track.reverse {
+    animation-direction: reverse;
+}
+
+.marquee-item {
+    flex-shrink: 0;
+}
+
+.client-card {
+    padding: 20px 50px;
+    border-radius: 20px;
+    border: 1px solid #222;
+    background: #1a1a1a;
+    transition: all 0.4s ease;
+}
+
+.client-card:hover {
+    border-color: #ff4d4d;
+}
+
+.client-card span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #bbb;
+}
+
+/* Fade edges */
+
+.marquee-fade-left,
+.marquee-fade-right {
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.marquee-fade-left {
+    left: 0;
+    background: linear-gradient(to right, #0f0f0f, transparent);
+}
+
+.marquee-fade-right {
+    right: 0;
+    background: linear-gradient(to left, #0f0f0f, transparent);
+}
+
+/* ===== Footer ===== */
+
+.clients-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.clients-footer span {
+    display: inline-block;
+    padding: 12px 30px;
+    border-radius: 999px;
+    border: 1px solid #333;
+    font-size: 14px;
+    color: #aaa;
+    transition: all 0.3s ease;
+}
+
+.clients-footer span:hover {
+    border-color: #ff4d4d;
+    color: white;
+}
+
+/* ===== Animations ===== */
+
+.fade-up {
+    animation: fadeUp 0.8s forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+
+@media (max-width: 768px) {
+    .clients-header h2 {
+        font-size: 36px;
+    }
+
+    .client-card {
+        padding: 15px 30px;
+    }
+}

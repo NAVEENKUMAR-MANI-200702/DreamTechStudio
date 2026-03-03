@@ -1,0 +1,16 @@
+.gradient-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  animation: blobFloat 10s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes blobFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-30px);
+  }
+}
