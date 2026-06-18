@@ -40,8 +40,14 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    document.body.classList.toggle("nav-open", isOpen);
+
+    return () => document.body.classList.remove("nav-open");
+  }, [isOpen]);
+
   return (
-    <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
+    <header className={`navbar ${scrolled ? "scrolled" : ""} ${isOpen ? "open" : ""}`}>
       <nav className="nav-container">
         <a href="#" className="logo">
           <span className="header-logo-small">Dream</span>
@@ -73,7 +79,7 @@ const Navbar = () => {
           className={`hamburger ${isOpen ? "open" : ""}`}
           aria-label={isOpen ? "Close menu" : "Open menu"}
           aria-expanded={isOpen}
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={() => setIsOpen((open) => !open)}
         >
           {isOpen ? (
             <X className="hamburger-icon" aria-hidden="true" />
