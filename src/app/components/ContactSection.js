@@ -1,7 +1,16 @@
-import React, { useState } from "react";
-import { Phone, Mail, MapPin, ArrowUpRight } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import {
+  Phone,
+  Mail,
+  MapPin,
+  ArrowUpRight,
+  CheckCircle,
+  AlertCircle,
+} from "lucide-react";
 import { useAnimateOnScroll } from "../hooks/useAnimateOnScroll";
 import GradientBlob from "./GradientBlob";
+
+const API_URL = process.env.REACT_APP_GOOGLE_SCRIPT_URL;
 
 const contactItems = [
   {
@@ -28,11 +37,31 @@ const ContactSection = () => {
   const { ref, isVisible } = useAnimateOnScroll();
   const [focused, setFocused] = useState("");
   const [status, setStatus] = useState("");
-  const API_URL =
-    "https://script.google.com/macros/s/AKfycbwvAdz_lVaeuVJ4VRCyB03ANWWkRWeQvjtvMjkF6w9GzlDrIs9lO396bplIbO4ObpbLXA/exec";
+  const [toast, setToast] = useState(null);
+
+  useEffect(() => {
+    if (!toast) {
+      return undefined;
+    }
+
+    const timeout = window.setTimeout(() => {
+      setToast(null);
+    }, 3500);
+
+    return () => window.clearTimeout(timeout);
+  }, [toast]);
 
   const sendEmail = async (e) => {
     e.preventDefault();
+
+    if (!API_URL) {
+      setStatus("error");
+      setToast({
+        type: "error",
+        message: "Unable to send right now. Try again shortly.",
+      });
+      return;
+    }
 
     const formData = {
       first_name: e.target.first_name.value,
@@ -63,13 +92,25 @@ const ContactSection = () => {
 
       if (data.status === "success") {
         setStatus("success");
+        setToast({
+          type: "success",
+          message: "Message sent successfully!",
+        });
         e.target.reset();
       } else {
         setStatus("error");
+        setToast({
+          type: "error",
+          message: "Failed to send. Try again.",
+        });
       }
     } catch (err) {
       console.error(err);
       setStatus("error");
+      setToast({
+        type: "error",
+        message: "Failed to send. Try again.",
+      });
     }
   };
 
@@ -212,27 +253,26 @@ const ContactSection = () => {
                   {status === "loading" ? "Sending..." : "Send Message"}
                   <ArrowUpRight size={16} />
                 </button>
-
-                {status === "loading" && (
-                  <div className="form-loading">⏳ Sending...</div>
-                )}
-
-                {status === "success" && (
-                  <div className="form-success">
-                    ✅ Message sent successfully!
-                  </div>
-                )}
-
-                {status === "error" && (
-                  <div className="form-error">
-                    ❌ Failed to send. Try again.
-                  </div>
-                )}
               </form>
             </div>
           </div>
         </div>
       </div>
+
+      {toast && (
+        <div
+          className={`contact-toast contact-toast-${toast.type}`}
+          role="status"
+          aria-live="polite"
+        >
+          {toast.type === "success" ? (
+            <CheckCircle size={18} aria-hidden="true" />
+          ) : (
+            <AlertCircle size={18} aria-hidden="true" />
+          )}
+          <span>{toast.message}</span>
+        </div>
+      )}
     </section>
   );
 };

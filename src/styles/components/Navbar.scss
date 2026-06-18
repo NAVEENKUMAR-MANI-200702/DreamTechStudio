@@ -15,6 +15,8 @@
 
 /* Nav Layout */
 .nav-container {
+  position: relative;
+  z-index: 2;
   max-width: 100%;
   margin: auto;
   padding: 16px 20px;
@@ -101,9 +103,16 @@
   display: none;
   flex-direction: column;
   gap: 5px;
+  position: relative;
+  z-index: 3;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
   background: none;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 .hamburger span {
@@ -113,22 +122,17 @@
   transition: 0.3s;
 }
 
-.hamburger.open span:nth-child(1) {
-  transform: rotate(45deg) translateY(6px);
-}
-
-.hamburger.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.hamburger.open span:nth-child(3) {
-  transform: rotate(-45deg) translateY(-6px);
+.hamburger-icon {
+  width: 26px;
+  height: 26px;
+  color: white;
 }
 
 /* Mobile Menu */
 .mobile-menu {
   position: fixed;
   inset: 0;
+  z-index: 1;
   background: #0c0a09;
   display: flex;
   flex-direction: column;

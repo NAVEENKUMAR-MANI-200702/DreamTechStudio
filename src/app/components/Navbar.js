@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from "react";
+import { X } from "lucide-react";
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -70,11 +71,19 @@ const Navbar = () => {
 
         <button
           className={`hamburger ${isOpen ? "open" : ""}`}
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={isOpen}
           onClick={() => setIsOpen(!isOpen)}
         >
-          <span />
-          <span />
-          <span />
+          {isOpen ? (
+            <X className="hamburger-icon" aria-hidden="true" />
+          ) : (
+            <>
+              <span />
+              <span />
+              <span />
+            </>
+          )}
         </button>
       </nav>
 
